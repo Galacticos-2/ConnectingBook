@@ -1,0 +1,47 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/coverage/
+.vs/
+.idea/
+*.user
+*.suo
+*.log
+.env*
+**/.env*
+*.pfx
+*.pem
+*.key
+.local/
+TestResults/
+**/TestResults/
+Project-Web-ConnectingBook.Server/wwwroot/
+Thumbs.db
+.DS_Store
+
+# Secrets và cấu hình riêng trên máy
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+**/secrets.json
+**/appsettings.Local.json
+**/appsettings.*.Local.json
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Database và backup
+*.mdf
+*.ndf
+*.ldf
+*.bak
+
+# Spec Kit và hướng dẫn agent
+.agents/
+.specify/
+specs/

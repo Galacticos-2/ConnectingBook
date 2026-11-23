@@ -1,0 +1,6 @@
+@Project_Web_ConnectingBook.Server_HostAddress = http://localhost:5219
+
+GET {{Project_Web_ConnectingBook.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

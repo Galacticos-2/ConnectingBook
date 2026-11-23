@@ -1,0 +1,9 @@
+{
+  "checkedAtUtc": "2026-11-23T00:15:21.755Z",
+  "backend": "temporary HTTP stub; no database access",
+  "health": 200,
+  "invalidRegistration": 400,
+  "noSessionRefresh": 401,
+  "foreignOrigin": 403,
+  "accountCreated": false
+}

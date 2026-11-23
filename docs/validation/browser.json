@@ -1,0 +1,18 @@
+{
+  "database": "ConnectingBook_Test_Browser_403136afd69444aabcf438c98c8a3c06",
+  "origin": "https://localhost:61368",
+  "isolated": true,
+  "checks": {
+    "reelPublished": true,
+    "browserVideoReady": true,
+    "noLocalStorageTokens": true,
+    "desktopNoOverflow": true,
+    "mobileNoOverflow": true,
+    "moderationHideRestore": true
+  },
+  "images": [
+    "docs/demo/feed-desktop.png",
+    "docs/demo/feed-mobile.png",
+    "docs/demo/moderation.gif"
+  ]
+}

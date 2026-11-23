@@ -1,0 +1,55 @@
+name: ConnectingBook checks
+
+# Manual by default: do not start hosted jobs or spend Actions quota without the owner's action.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+          cache-dependency-path: project-web-connectingbook.client/package-lock.json
+      - name: Start isolated local SQL Server
+        shell: pwsh
+        run: |
+          sqllocaldb start MSSQLLocalDB
+          if ($LASTEXITCODE -ne 0) { throw 'SQL Server LocalDB is required for integration tests.' }
+          Add-Content $env:GITHUB_ENV 'ConnectionStrings__Test=Server=(localdb)\MSSQLLocalDB;Database=master;Integrated Security=True;Encrypt=True;TrustServerCertificate=True'
+      - name: Ensure FFmpeg is available
+        shell: pwsh
+        run: |
+          if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
+            choco install ffmpeg --yes --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'FFmpeg installation failed.' }
+          }
+          ffmpeg -version
+      - name: Restore and build backend
+        run: dotnet build tests/ConnectingBook.Server.Tests/ConnectingBook.Server.Tests.csproj -p:BuildClient=false
+      - name: Check C# formatting
+        run: dotnet format whitespace tests/ConnectingBook.Server.Tests/ConnectingBook.Server.Tests.csproj --verify-no-changes --no-restore
+      - name: Run real SQL Server and video integration tests
+        run: dotnet test tests/ConnectingBook.Server.Tests/ConnectingBook.Server.Tests.csproj --no-build --no-restore --logger trx
+      - name: Restore frontend
+        working-directory: project-web-connectingbook.client
+        run: npm ci
+      - name: Build frontend
+        working-directory: project-web-connectingbook.client
+        run: npm run build
+      - name: Lint frontend
+        working-directory: project-web-connectingbook.client
+        run: npm run lint
+      - name: Test frontend
+        working-directory: project-web-connectingbook.client
+        run: npm run test -- --run

@@ -1,0 +1,6 @@
+{
+    "database":  "ConnectingBook_Test_Performance_660c12d8295541928d31e639481110a3",
+    "users":  1000,
+    "posts":  100000,
+    "syntheticDataOnly":  true
+}

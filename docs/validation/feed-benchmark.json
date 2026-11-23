@@ -1,0 +1,21 @@
+{
+  "measuredAtUtc": "2026-11-22T23:50:33.196Z",
+  "origin": "https://localhost:3521",
+  "runtime": "v22.14.0",
+  "platform": "win32 10.0.26300",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-12450H",
+  "logicalCpus": 12,
+  "memoryGiB": 32,
+  "requests": 100,
+  "concurrency": 5,
+  "warmup": 15,
+  "p50Ms": 6.98,
+  "p95Ms": 13.14,
+  "maxMs": 23.82,
+  "targetP95Ms": 300,
+  "dataset": {
+    "users": 1000,
+    "posts": 100000,
+    "note": "Counts must be verified against the dedicated benchmark database."
+  }
+}
